@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="new_forecast">New Forecast</string>
+    <string name="button_send">Send</string>
+    <string name="edit_message">Edit message</string>
+    <string name="add_new_forecast">Add new forecast</string>
+    <string name="city_name">City name</string>
+    <string name="country_code">Country code</string>
+
+
+    <string name="day" formatted="false">Dia - %s data %s</string>
+</resources>
