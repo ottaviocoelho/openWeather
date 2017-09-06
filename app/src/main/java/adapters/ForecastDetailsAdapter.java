@@ -11,40 +11,47 @@ import com.example.otavioaugusto.myapplication.R;
 
 import java.util.List;
 
-import models.Details;
+import models.ForecastDay;
 
-public class ForecastDetailsAdapter extends ArrayAdapter<Details> {
+public class ForecastDetailsAdapter extends ArrayAdapter<ForecastDay> {
 
     private LayoutInflater inflater;
-    private List<Details> forecasts;
+    private List<ForecastDay> forecasts;
 
-    public ForecastDetailsAdapter(Context context, int resource, List<Details> forecasts, LayoutInflater inflater) {
-        super(context, resource, forecasts);
-        this.inflater = inflater;
+    public void setItens(List<ForecastDay> forecasts) {
         this.forecasts = forecasts;
+        notifyDataSetChanged();
+    }
+
+    public ForecastDetailsAdapter(Context context, int resource, LayoutInflater inflater) {
+        super(context, resource);
+        this.inflater = inflater;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.forecast_list, null, false);
         }
-        Details currentForecast = forecasts.get(position);
+        ForecastDay currentForecast = forecasts.get(position);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.forecast_name);
         TextView tvMaxTemp = (TextView) convertView.findViewById(R.id.max_temp);
         TextView tvMinTemp = (TextView) convertView.findViewById(R.id.min_temp);
         TextView tvHumidity = (TextView) convertView.findViewById(R.id.humidity);
-        TextView tvWeather = (TextView) convertView.findViewById(R.id.weather);
 
         tvName.setText(currentForecast.getDay());
-        tvMaxTemp.setText("MAX: " + (int) currentForecast.getTempMax() + " Cº");
-        tvMinTemp.setText("MIN: " + (int) currentForecast.getTempMin() + " Cº");
-//        tvMaxTemp.setText("MAX: " + Double.toString(currentForecast.getTempMax()) + " Cº");
-//        tvMinTemp.setText("MIN: " + Double.toString(currentForecast.getTempMin()) + " Cº");
+        tvMaxTemp.setText("MAX: " + currentForecast.getTempMax() + " Cº");
+        tvMinTemp.setText("MIN: " + currentForecast.getTempMin() + " Cº");
         tvHumidity.setText("HUMIDITY: " + Integer.toString(currentForecast.getHumidity()) + "%");
-        tvWeather.setText("WEATHER: " + currentForecast.getDescription());
 
         return convertView;
+    }
+
+    public int getCount(){
+        if(forecasts != null){
+            return forecasts.size();
+        }
+        return 0;
     }
 
 }

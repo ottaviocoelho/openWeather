@@ -18,10 +18,22 @@ public class CityListAdapter extends ArrayAdapter<City> {
     private LayoutInflater inflater;
     private List<City> cities;
 
-    public CityListAdapter(Context context, int resource, List<City> cities, LayoutInflater inflater) {
-        super(context, resource, cities);
+    public CityListAdapter(Context context, int resource, LayoutInflater inflater) {
+        super(context, resource);
         this.inflater = inflater;
+    }
+
+    public void setItens(List<City> cities){
         this.cities = cities;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        if(cities != null) {
+            return cities.size();
+        }
+        return 0;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -37,9 +49,6 @@ public class CityListAdapter extends ArrayAdapter<City> {
         tvName.setText(currentCity.getName());
         tvMaxTemp.setText("MAX: " + (int) currentCity.getMain().getTempMax() + " Cº");
         tvMinTemp.setText("MIN: " + (int) currentCity.getMain().getTempMin() + " Cº");
-//        String.format("%.2f", currentCity.getMain().getTempMin());
-//        tvMaxTemp.setText("MAX: " + Double.toString(currentCity.getMain().getTempMax()) + " Cº");
-//        tvMinTemp.setText("MIN: " + Double.toString(currentCity.getMain().getTempMin()) + " Cº");
 
         convertView.setId(currentCity.getId().intValue());
 

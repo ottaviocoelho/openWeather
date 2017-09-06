@@ -23,7 +23,7 @@ public class CityListView {
     }
 
     public void init(int resource) {
-        adapter = new CityListAdapter(activity, resource, cities, activity.getLayoutInflater());
+        adapter = new CityListAdapter(activity, resource, activity.getLayoutInflater());
         ListView cityList = (ListView) activity.findViewById(resource);
         cityList.setAdapter(adapter);
         cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -32,25 +32,16 @@ public class CityListView {
                 activity.forecastDetail(view);
             }
         });
-        populateView();
-    }
-
-    public void addToView(City city) {
-        adapter.add(city);
+        updateAdapter();
     }
 
     public void updateView(List<City> cities) {
         this.cities = cities;
-        populateView();
+        updateAdapter();
     }
 
-    private void populateView() {
-        adapter.clear();
-        addAll();
-    }
-
-    private void addAll() {
-        for(City city : cities) adapter.add(city);
+    private void updateAdapter(){
+        adapter.setItens(cities);
     }
 
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import controllers.CityListController;
 import models.City;
 
 public class CityRepository {
@@ -14,7 +13,6 @@ public class CityRepository {
 
     public void add(City city) {
         cache.put(city.getId(), city);
-        CityListController.getInstance().updateView();
     }
 
     public List<City> getAll() {

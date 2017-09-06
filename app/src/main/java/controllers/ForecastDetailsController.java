@@ -46,10 +46,6 @@ public class ForecastDetailsController {
         return forecastId;
     }
 
-    public void setActivity(ForecastDetailActivity activity) {
-        this.activity = activity;
-    }
-
     public void setResource(int resource) {
         this.resource = resource;
     }

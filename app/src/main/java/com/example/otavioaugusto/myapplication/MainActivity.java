@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         CityListController.getInstance().init(this, R.id.city_list_view);
         CityListController.getInstance().addByName("Blumenau,BR");
         CityListController.getInstance().addByName("Joinville,BR");
-        CityListController.getInstance().addByName("Curitiba,BR");
+        CityListController.getInstance().addByName("Criciuma,BR");
     }
 
     public void newForecast(View view) {

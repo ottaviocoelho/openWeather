@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Created by otavio.augusto on 24/08/2017.
- */
+import java.util.Date;
 
 public class Details {
 
@@ -11,14 +9,23 @@ public class Details {
     private double tempMax;
     private String main;
     private String description;
-    private String day;
+    private Date date;
+    private String cityName;
 
-    public String getDay() {
-        return day;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getHumidity() {
@@ -45,16 +52,8 @@ public class Details {
         this.tempMax = tempMax;
     }
 
-    public String getMain() {
-        return main;
-    }
-
     public void setMain(String main) {
         this.main = main;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setDescription(String description) {

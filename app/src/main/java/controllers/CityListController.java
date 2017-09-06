@@ -19,13 +19,9 @@ public class CityListController {
         service.init();
     }
 
-    public void updateView() {
-        view.updateView(repository.getAll());
-    }
-
     public void addCity(City city) {
         repository.add(city);
-        view.addToView(city);
+        view.updateView(repository.getAll());
     }
 
     private static CityListController controller = new CityListController();

@@ -15,7 +15,7 @@
         android:weightSum="1">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/forecast_city_name"
             android:layout_width="245dp"
             android:layout_height="30dp"
             android:fontFamily="sans-serif-condensed"
