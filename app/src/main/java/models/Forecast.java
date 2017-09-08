@@ -4,28 +4,25 @@ import java.util.List;
 
 public class Forecast {
 
-    private List<Weather> weather;
-    private List<Main> main;
+    private List<Weather> weathers;
+    private List<Main> mains;
     private Long id;
     private String name;
 
-    private Float coordLon;
-    private Float coordLat;
-
-    public List<Main> getMain() {
-        return main;
+    public List<Main> getMains() {
+        return mains;
     }
 
-    public void setMain(List<Main> main) {
-        this.main = main;
+    public void setMains(List<Main> main) {
+        this.mains = main;
     }
 
-    public List<Weather> getWeather() {
-        return weather;
+    public List<Weather> getWeathers() {
+        return weathers;
     }
 
-    public void setWeather(List<Weather> weather) {
-        this.weather = weather;
+    public void setWeathers(List<Weather> weathers) {
+        this.weathers = weathers;
     }
 
     public Long getId() {
@@ -42,21 +39,5 @@ public class Forecast {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Float getCoordLon() {
-        return coordLon;
-    }
-
-    public void setCoordLon(Float coordLon) {
-        this.coordLon = coordLon;
-    }
-
-    public Float getCoodLat() {
-        return coordLat;
-    }
-
-    public void setCoordLat(Float coordLat) {
-        this.coordLat = coordLat;
     }
 }

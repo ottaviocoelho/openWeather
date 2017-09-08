@@ -21,7 +21,7 @@ public class ForecastDetailView {
     private ForecastDetailsAdapter adapter;
 
     public ForecastDetailView(Forecast forecast, Activity activity) {
-        this.forecastDays = ForecastDayBuilder.build(DetailsBuilder.buildDetails(activity, forecast));
+        this.forecastDays = ForecastDayBuilder.build(DetailsBuilder.buildDetails(forecast));
         this.activity = activity;
     }
 

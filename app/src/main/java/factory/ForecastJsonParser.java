@@ -43,13 +43,6 @@ public class ForecastJsonParser {
     private Forecast buildForecast(Forecast forecast, JSONObject jsonObject) throws JSONException {
         forecast.setId(jsonObject.getLong("id"));
         forecast.setName(jsonObject.getString("name"));
-        return parseCoord(forecast, jsonObject);
-    }
-
-    private Forecast parseCoord(Forecast forecast, JSONObject jsonObject) throws JSONException {
-        JSONObject coordJson = jsonObject.getJSONObject("coord");
-        forecast.setCoordLat(Float.valueOf(coordJson.getString("lat")));
-        forecast.setCoordLon(Float.valueOf(coordJson.getString("lon")));
         return forecast;
     }
 

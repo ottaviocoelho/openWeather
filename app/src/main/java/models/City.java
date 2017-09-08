@@ -1,30 +1,70 @@
 package models;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "cities")
 public class City {
 
-    private Weather weather;
-    private Main main;
+    @DatabaseField(id = true)
     private Long id;
+
+    @DatabaseField
     private String name;
-    private String cod;
 
-    private Float coordLon;
-    private Float coordLat;
+    @DatabaseField
+    private String description;
 
-    public Main getMain() {
-        return main;
+    @DatabaseField
+    private String icon;
+
+    @DatabaseField
+    private double tempMin;
+
+    @DatabaseField
+    private double tempMax;
+
+    @DatabaseField
+    private double temp;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Weather getWeather() {
-        return weather;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setWeather(Weather weather) {
-        this.weather = weather;
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public double getTempMin() {
+        return tempMin;
+    }
+
+    public void setTempMin(double tempMin) {
+        this.tempMin = tempMin;
+    }
+
+    public double getTempMax() {
+        return tempMax;
+    }
+
+    public void setTempMax(double tempMax) {
+        this.tempMax = tempMax;
+    }
+
+    public double getTemp() {
+        return temp;
+    }
+
+    public void setTemp(double temp) {
+        this.temp = temp;
     }
 
     public Long getId() {
@@ -41,30 +81,6 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCod() {
-        return cod;
-    }
-
-    public void setCod(String cod) {
-        this.cod = cod;
-    }
-
-    public Float getCoordLon() {
-        return coordLon;
-    }
-
-    public void setCoordLon(Float coordLon) {
-        this.coordLon = coordLon;
-    }
-
-    public Float getCoodLat() {
-        return coordLat;
-    }
-
-    public void setCoordLat(Float coordLat) {
-        this.coordLat = coordLat;
     }
 
 }

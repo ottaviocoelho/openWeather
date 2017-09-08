@@ -21,7 +21,7 @@ public class ForecastRepository {
 
     public void add(Forecast forecast) {
         cache.put(forecast.getId(), forecast);
-        ForecastControllersRepository.getInstance() .getById(forecast.getId()).addForecast(forecast);
+        ForecastControllersRepository.getInstance().getById(forecast.getId()).addForecast(forecast);
     }
 
     public Forecast getById(Long id){

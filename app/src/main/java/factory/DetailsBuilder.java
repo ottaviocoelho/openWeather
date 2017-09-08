@@ -1,7 +1,5 @@
 package factory;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,12 +11,12 @@ import models.Weather;
 
 public abstract class DetailsBuilder {
 
-    public static List<Details> buildDetails(Context context, Forecast forecast) {
+    public static List<Details> buildDetails(Forecast forecast) {
         ArrayList<Details> details = new ArrayList<>();
-        for(int i = 0; i < forecast.getMain().size() ; i++){
-            Main main = forecast.getMain().get(i);
+        for(int i = 0; i < forecast.getMains().size() ; i++){
+            Main main = forecast.getMains().get(i);
             Details detail = new Details();
-            Weather weather = forecast.getWeather().get(forecast.getMain().indexOf(main));
+            Weather weather = forecast.getWeathers().get(forecast.getMains().indexOf(main));
             detail.setDate(getDate(main.getDt()));
             detail.setDescription(weather.getDescription());
             detail.setMain(weather.getMain());

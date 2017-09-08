@@ -1,21 +1,49 @@
 package models;
 
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "mains")
 public class Main{
 
+    @DatabaseField(columnName = "forecast_id", foreign = true)
+    private Forecast forecastId;
+
+    @DatabaseField
     private double temp;
+
+    @DatabaseField
     private long dt;
+
+    @DatabaseField
     private int pressure;
+
+    @DatabaseField
     private int humidity;
+
+    @DatabaseField
     private double tempMin;
+
+    @DatabaseField
     private double tempMax;
 
-    public Main(double temp, int pressure, int humidity, double tempMin, double tempMax, long dt) {
+    public Main(double temp, int pressure, int humidity, double tempMin, double tempMax, long dt, Forecast forecastId) {
         this.temp = temp;
         this.pressure = pressure;
         this.humidity = humidity;
         this.tempMin = tempMin;
         this.tempMax = tempMax;
         this.dt = dt;
+        this.forecastId = forecastId;
+    }
+
+    public Forecast getForecastId() {
+        return forecastId;
+    }
+
+    public void setForecastId(Forecast forecastId) {
+        this.forecastId = forecastId;
     }
 
     public long getDt() {

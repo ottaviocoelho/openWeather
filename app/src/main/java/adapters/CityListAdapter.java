@@ -47,8 +47,8 @@ public class CityListAdapter extends ArrayAdapter<City> {
         TextView tvMinTemp = (TextView) convertView.findViewById(R.id.min_temp);
 
         tvName.setText(currentCity.getName());
-        tvMaxTemp.setText("MAX: " + (int) currentCity.getMain().getTempMax() + " Cº");
-        tvMinTemp.setText("MIN: " + (int) currentCity.getMain().getTempMin() + " Cº");
+        tvMaxTemp.setText("MAX: " + (int) currentCity.getTempMax() + " Cº");
+        tvMinTemp.setText("MIN: " + (int) currentCity.getTempMin() + " Cº");
 
         convertView.setId(currentCity.getId().intValue());
 
