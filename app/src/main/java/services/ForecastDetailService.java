@@ -1,10 +1,8 @@
 package services;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import factory.ForecastJsonParser;
-import repositories.ForecastRepository;
 import tasks.ForecastDetailTask;
 
 public class ForecastDetailService {
@@ -24,11 +22,7 @@ public class ForecastDetailService {
     }
 
     public void addToRepository(JSONObject jsonObject) {
-        try {
-            ForecastRepository.getInstance().add(parser.parse(jsonObject));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        parser.parseForecast(jsonObject);
     }
 
     private void executeTask(String url) {

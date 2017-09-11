@@ -9,25 +9,22 @@ import com.example.otavioaugusto.myapplication.R;
 import java.util.List;
 
 import adapters.ForecastDetailsAdapter;
-import factory.DetailsBuilder;
-import factory.ForecastDayBuilder;
 import models.Forecast;
-import models.ForecastDay;
 
 public class ForecastDetailView {
 
-    private List<ForecastDay> forecastDays;
+    private List<Forecast> forecasts;
     private Activity activity;
     private ForecastDetailsAdapter adapter;
 
-    public ForecastDetailView(Forecast forecast, Activity activity) {
-        this.forecastDays = ForecastDayBuilder.build(DetailsBuilder.buildDetails(forecast));
+    public ForecastDetailView(List<Forecast> forecasts, Activity activity) {
+        this.forecasts = forecasts;
         this.activity = activity;
     }
 
-    public void init(int resource) {
+    public void init(int resource, String cityName) {
         TextView tView = (TextView) activity.findViewById(R.id.forecast_city_name);
-        tView.setText(forecastDays.get(0).getCityName());
+        tView.setText(cityName);
         adapter = new ForecastDetailsAdapter(activity, resource, activity.getLayoutInflater());
         ListView forecastList = (ListView) activity.findViewById(resource);
         forecastList.setAdapter(adapter);
@@ -35,7 +32,7 @@ public class ForecastDetailView {
     }
 
     private void populateView() {
-        adapter.setItens(forecastDays);
+        adapter.setItens(forecasts);
     }
 
 }

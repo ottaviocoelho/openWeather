@@ -27,6 +27,10 @@ public class City {
     @DatabaseField
     private double temp;
 
+    public City(){
+        super();
+    }
+
     public String getDescription() {
         return description;
     }

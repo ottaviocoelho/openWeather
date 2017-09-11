@@ -19,18 +19,22 @@ public class CityRepository {
         return new ArrayList<>(cache.values());
     }
 
-    private City searchByFullName(String cityName, ArrayList<City> cities) {
+    public City searchByFullName(String cityName, ArrayList<City> cities) {
         for (City city : cities) {
             if(cityName.equals(city.getName())) return city;
         }
         return null;
     }
 
-    private City searchByName(String cityName, ArrayList<City> cities) {
+    public City searchByName(String cityName, ArrayList<City> cities) {
         for (City city : cities) {
             if(city.getName().contains(cityName)) return city;
         }
         return null;
+    }
+
+    public City getById(long id){
+        return cache.get(id);
     }
 
     private static  CityRepository repository = new CityRepository();

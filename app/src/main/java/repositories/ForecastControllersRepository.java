@@ -23,8 +23,4 @@ public class ForecastControllersRepository {
         return cache.get(id);
     }
 
-    public boolean cacheContains(Long id) {
-        return cache.containsKey(id);
-    }
-
 }

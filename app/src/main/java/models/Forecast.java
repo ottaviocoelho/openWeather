@@ -1,28 +1,49 @@
 package models;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
-public class Forecast {
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-    private List<Weather> weathers;
-    private List<Main> mains;
+@DatabaseTable(tableName = "forecasts")
+public class Forecast implements Comparable<Forecast>{
+
+    @DatabaseField(foreign = true)
+    private City city;
+
+    @DatabaseField(id = true)
     private Long id;
-    private String name;
 
-    public List<Main> getMains() {
-        return mains;
+    @DatabaseField
+    private String description;
+
+    @DatabaseField
+    private String icon;
+
+    @DatabaseField
+    private double tempMin;
+
+    @DatabaseField
+    private double tempMax;
+
+    @DatabaseField
+    private long dt;
+
+
+    public long getDt() {
+        return dt;
     }
 
-    public void setMains(List<Main> main) {
-        this.mains = main;
+    public void setDt(long dt) {
+        this.dt = dt;
     }
 
-    public List<Weather> getWeathers() {
-        return weathers;
+    public City getCity() {
+        return city;
     }
 
-    public void setWeathers(List<Weather> weathers) {
-        this.weathers = weathers;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Long getId() {
@@ -33,11 +54,43 @@ public class Forecast {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public double getTempMin() {
+        return tempMin;
+    }
+
+    public void setTempMin(double tempMin) {
+        this.tempMin = tempMin;
+    }
+
+    public double getTempMax() {
+        return tempMax;
+    }
+
+    public void setTempMax(double tempMax) {
+        this.tempMax = tempMax;
+    }
+
+    @Override
+    public int compareTo(@NonNull Forecast otherForecast) {
+        if (this.getDt() == otherForecast.getDt()){
+            return 0;
+        }
+        return this.getDt() > otherForecast.getDt() ? 1 : -1;
     }
 }

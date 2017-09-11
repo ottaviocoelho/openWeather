@@ -9,16 +9,21 @@ import android.widget.TextView;
 
 import com.example.otavioaugusto.myapplication.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import models.ForecastDay;
+import models.Forecast;
+import utils.DayResolver;
 
-public class ForecastDetailsAdapter extends ArrayAdapter<ForecastDay> {
+public class ForecastDetailsAdapter extends ArrayAdapter<Forecast> {
 
     private LayoutInflater inflater;
-    private List<ForecastDay> forecasts;
+    private List<Forecast> forecasts;
 
-    public void setItens(List<ForecastDay> forecasts) {
+    public void setItens(List<Forecast> forecasts) {
         this.forecasts = forecasts;
         notifyDataSetChanged();
     }
@@ -32,17 +37,15 @@ public class ForecastDetailsAdapter extends ArrayAdapter<ForecastDay> {
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.forecast_list, null, false);
         }
-        ForecastDay currentForecast = forecasts.get(position);
+        Forecast currentForecast = forecasts.get(position);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.forecast_name);
         TextView tvMaxTemp = (TextView) convertView.findViewById(R.id.max_temp);
         TextView tvMinTemp = (TextView) convertView.findViewById(R.id.min_temp);
-        TextView tvHumidity = (TextView) convertView.findViewById(R.id.humidity);
 
-        tvName.setText(currentForecast.getDay());
+        tvName.setText(resolveDay(currentForecast));
         tvMaxTemp.setText("MAX: " + currentForecast.getTempMax() + " Cº");
         tvMinTemp.setText("MIN: " + currentForecast.getTempMin() + " Cº");
-        tvHumidity.setText("HUMIDITY: " + Integer.toString(currentForecast.getHumidity()) + "%");
 
         return convertView;
     }
@@ -52,6 +55,13 @@ public class ForecastDetailsAdapter extends ArrayAdapter<ForecastDay> {
             return forecasts.size();
         }
         return 0;
+    }
+
+    private String resolveDay(Forecast forecast) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(forecast.getDt()));
+        return DayResolver.resolve(calendar.get(Calendar.DAY_OF_WEEK))+ "  " + dateFormat.format(calendar.getTime());
     }
 
 }

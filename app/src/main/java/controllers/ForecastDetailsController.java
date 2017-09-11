@@ -2,7 +2,10 @@ package controllers;
 
 import com.example.otavioaugusto.myapplication.ForecastDetailActivity;
 
+import java.util.List;
+
 import models.Forecast;
+import repositories.CityRepository;
 import repositories.ForecastControllersRepository;
 import repositories.ForecastRepository;
 import services.ForecastDetailService;
@@ -25,21 +28,17 @@ public class ForecastDetailsController {
         this.forecastId = id;
         repository.init();
         ForecastControllersRepository.getInstance().add(this);
-        Forecast forecast = repository.getById(forecastId);
-        if (forecast != null) {
-            initView(forecast);
+        List<Forecast> forecasts = repository.getById(forecastId);
+        if (forecasts != null) {
+            initView(forecasts);
         } else {
             service.query(forecastId);
         }
     }
 
-    private void initView(Forecast forecast) {
-        view = new ForecastDetailView(forecast, activity);
-        view.init(resource);
-    }
-
-    public void addForecast(Forecast forecast) {
-        initView(forecast);
+    public void initView(List<Forecast> forecasts) {
+        view = new ForecastDetailView(forecasts, activity);
+        view.init(resource, CityRepository.getInstance().getById(forecasts.get(0).getId()).getName());
     }
 
     public Long getForecastId() {
