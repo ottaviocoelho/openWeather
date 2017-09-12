@@ -27,7 +27,7 @@ public abstract class ForecastFactory {
         }
         for (Integer key : detailsByDay.keySet()) {
             Forecast forecast = ForecastBuilder.buildForecast(detailsByDay.get(key));
-            forecasts.put(getDayOfMonth(forecast.getDt()), forecast);
+            forecasts.put(key, forecast);
         }
         return forecasts;
     }
@@ -38,7 +38,5 @@ public abstract class ForecastFactory {
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
-
-
 
 }

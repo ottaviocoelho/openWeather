@@ -1,11 +1,11 @@
 package repositories;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controllers.ForecastDetailsController;
 import models.Forecast;
 
 public class ForecastRepository {
@@ -16,28 +16,18 @@ public class ForecastRepository {
         return repository;
     }
 
-    private Map<Long, List<Forecast>> cache;
-
-    public void init() {
-        cache = new HashMap<>();
-    }
-
-    public void add(Forecast forecast) {
-        if(cache.keySet().contains(forecast.getId())){
-            cache.get(forecast.getId()).add(forecast);
-        } else {
-            List<Forecast> forecasts = new ArrayList<>();
-            forecasts.add(forecast);
-            cache.put(forecast.getId(), forecasts);
-        }
-    }
+    private Map<Long, List<Forecast>> cache = new HashMap<>();
 
     public void addAll(List<Forecast> forecasts){
         Collections.sort(forecasts);
-        for (Forecast forecast : forecasts) {
-            add(forecast);
+        long key = forecasts.get(0).getCity().getId();
+        if(cache.keySet().contains(key)) {
+            cache.remove(key);
         }
-        ForecastControllersRepository.getInstance().getById(forecasts.get(0).getId()).initView(forecasts);
+        cache.put(key, forecasts);
+        ForecastControllersRepository repo = ForecastControllersRepository.getInstance();
+        ForecastDetailsController cont = repo.getById(key);
+        cont.initView(forecasts);
     }
 
     public List<Forecast> getById(Long id){

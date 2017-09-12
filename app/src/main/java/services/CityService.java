@@ -3,11 +3,12 @@ package services;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 
 import controllers.CityListController;
 import factory.CityJsonParser;
-import models.Forecast;
+import models.City;
 import tasks.CityTask;
 
 public class CityService {
@@ -15,6 +16,7 @@ public class CityService {
     private static final CityService service = new CityService();
     private CityListController controller;
     private CityJsonParser parser;
+    private Date lastTimeQueried;
 
     final private String apiKey = "&APPID=06f3e9ccfa90c34fe75c672900b2b8ff";
 
@@ -23,14 +25,15 @@ public class CityService {
     }
 
     public void init() {
+        lastTimeQueried = new Date();
         controller = CityListController.getInstance();
         parser = CityJsonParser.getInstance();
     }
 
-    public void updateAll(List<Forecast> forecasts) {
-        String urlIdBase = "http://api.openweathermap.org/data/2.5/weather?id=";
-        String url = urlIdBase + getMultipleCitiesString(forecasts) + apiKey;
-        executeTask(url);
+    public void updateAll(List<City> cities) {
+        for (City city : cities) {
+            queryById(city.getId());
+        }
     }
 
     public void queryByName(String name){
@@ -40,8 +43,11 @@ public class CityService {
     }
 
     public void queryById(Long id) {
-        String urlIdBase = "http://api.openweathermap.org/data/2.5/weather?id=";
-        String url = urlIdBase + id + apiKey;
+        if(calculateLasTime()) {
+            String urlIdBase = "http://api.openweathermap.org/data/2.5/weather?id=";
+            String url = urlIdBase + id + apiKey;
+            executeTask(url);
+        }
     }
 
     public void addToRepository(JSONObject jsonObject) {
@@ -52,15 +58,8 @@ public class CityService {
         }
     }
 
-    private String getMultipleCitiesString(List<Forecast> forecasts) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < forecasts.size() && i < 20; i++) {
-            builder.append(forecasts.get(i).getId());
-            if(i < forecasts.size() -1 && i < 19){
-                builder.append(",");
-            }
-        }
-        return builder.toString();
+    public void notifyError() {
+        //todo
     }
 
     private void executeTask(String url) {
@@ -70,6 +69,16 @@ public class CityService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean calculateLasTime() {
+        Date newDate = new Date();
+        long diff = newDate.getTime() - lastTimeQueried.getTime();
+        if(((diff / (60 * 1000)) % 60) > 3) {
+            lastTimeQueried = newDate;
+            return true;
+        }
+        return false;
     }
 
 }

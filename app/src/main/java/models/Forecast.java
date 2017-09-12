@@ -8,10 +8,10 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "forecasts")
 public class Forecast implements Comparable<Forecast>{
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = "city_fk")
     private City city;
 
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Long id;
 
     @DatabaseField

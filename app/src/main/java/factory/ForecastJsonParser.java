@@ -1,8 +1,5 @@
 package factory;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,20 +9,17 @@ import java.util.Map;
 import models.Detail;
 import models.Forecast;
 import repositories.DetailRepository;
+import repositories.ForecastControllersRepository;
 import repositories.ForecastRepository;
 
 public class ForecastJsonParser {
 
-    public void parseForecast(JSONObject jsonObject) {
-        try {
-            List<Detail> details = DetailJsonParser.parse(jsonObject);
-            Map<Integer, Forecast> forecasts = ForecastFactory.getForecasts(details);
-            addForecasts(forecasts, details);
-            DetailRepository.getInstance().addAll(details);
-            ForecastRepository.getInstance().addAll(new ArrayList<>(forecasts.values()));
-            } catch(JSONException e){
-                e.printStackTrace();
-            }
+    public void parseForecast(List<Detail> details) {
+        Map<Integer, Forecast> forecasts = ForecastFactory.getForecasts(details);
+        addForecasts(forecasts, details);
+        DetailRepository.getInstance().addDetails(details);
+        ForecastRepository.getInstance().addAll(new ArrayList<>(forecasts.values()));
+        ForecastControllersRepository.getInstance().getById(details.get(0).getCityId()).updateModels();
     }
 
     private void addForecasts(Map<Integer, Forecast> forecasts, List<Detail> details){
@@ -40,4 +34,7 @@ public class ForecastJsonParser {
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
+
+    private static final ForecastJsonParser instance = new ForecastJsonParser();
+    public static ForecastJsonParser getInstance() { return instance; }
 }

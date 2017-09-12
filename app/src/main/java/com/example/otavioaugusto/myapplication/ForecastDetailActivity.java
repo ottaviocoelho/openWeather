@@ -13,6 +13,11 @@ public class ForecastDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forecast_detail);
         int sId = getIntent().getIntExtra("id", 0);
         Long id = Long.valueOf(sId);
-        new ForecastDetailsController(this, R.id.forecast_list_view, id);
+        try {
+            new ForecastDetailsController(this, R.id.forecast_list_view, id);
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

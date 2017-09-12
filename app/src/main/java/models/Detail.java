@@ -8,7 +8,7 @@ public class Detail {
 
     private long cityId;
 
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = "forecast_fk")
     private Forecast forecast;
 
     @DatabaseField

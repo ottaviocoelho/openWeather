@@ -1,5 +1,7 @@
 package repositories;
 
+import com.j256.ormlite.dao.Dao;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,22 +21,14 @@ public class CityRepository {
         return new ArrayList<>(cache.values());
     }
 
-    public City searchByFullName(String cityName, ArrayList<City> cities) {
-        for (City city : cities) {
-            if(cityName.equals(city.getName())) return city;
-        }
-        return null;
-    }
-
-    public City searchByName(String cityName, ArrayList<City> cities) {
-        for (City city : cities) {
-            if(city.getName().contains(cityName)) return city;
-        }
-        return null;
-    }
-
     public City getById(long id){
         return cache.get(id);
+    }
+
+    public void handleLoad(List<City> cities) {
+        for (City city : cities) {
+            cache.put(city.getId(), city);
+        }
     }
 
     private static  CityRepository repository = new CityRepository();

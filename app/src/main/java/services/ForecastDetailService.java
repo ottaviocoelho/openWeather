@@ -1,14 +1,21 @@
 package services;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import factory.DetailJsonParser;
 import factory.ForecastJsonParser;
+import models.Detail;
+import repositories.ForecastControllersRepository;
 import tasks.ForecastDetailTask;
 
 public class ForecastDetailService {
 
     private static final ForecastDetailService service = new ForecastDetailService();
-    private final ForecastJsonParser parser = new ForecastJsonParser();
+    private final DetailJsonParser parser = new DetailJsonParser();
+    private final ForecastControllersRepository repository = ForecastControllersRepository.getInstance();
 
     public static ForecastDetailService getInstance() {
         return service;
@@ -22,7 +29,12 @@ public class ForecastDetailService {
     }
 
     public void addToRepository(JSONObject jsonObject) {
-        parser.parseForecast(jsonObject);
+        try {
+            List<Detail> details = parser.parse(jsonObject);
+            ForecastJsonParser.getInstance().parseForecast(details);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void executeTask(String url) {

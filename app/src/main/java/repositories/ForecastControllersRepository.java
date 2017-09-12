@@ -16,7 +16,8 @@ public class ForecastControllersRepository {
     Map<Long, ForecastDetailsController> cache = new HashMap<>();
 
     public void add(ForecastDetailsController forecast) {
-        cache.put(forecast.getForecastId(), forecast);
+        long k = forecast.getForecastId();
+        cache.put(k , forecast);
     }
 
     public ForecastDetailsController getById(Long id){

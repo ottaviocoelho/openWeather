@@ -16,10 +16,10 @@ public class CityJsonParser {
     }
 
     public City parse(JSONObject jsonObject) throws JSONException {
-        return buildForecast(new City(), jsonObject);
+        return buildCity(new City(), jsonObject);
     }
 
-    private City buildForecast(City city, JSONObject jsonObject) throws JSONException {
+    private City buildCity(City city, JSONObject jsonObject) throws JSONException {
         city.setId(jsonObject.getLong("id"));
         city.setName(jsonObject.getString("name"));
         return parseWeather(parseMain(city, jsonObject), jsonObject);

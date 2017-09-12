@@ -11,22 +11,21 @@ public class DetailRepository {
 
     private Map<Long, List<Detail>> cache = new HashMap<>();
 
-    public void add(Detail detail){
-        if(cache.keySet().contains(detail.getCityId())){
-            cache.get(detail.getCityId()).add(detail);
-        } else {
-            List<Detail> details = new ArrayList<>();
-            details.add(detail);
-            cache.put(detail.getCityId(), details);
+    public void addDetails(List<Detail> details){
+        long key = details.get(0).getCityId();
+        if(cache.keySet().contains(key)) {
+            cache.remove(key);
         }
+        cache.put(key, details);
     }
 
-    public void addAll(List<Detail> details){
-        for (Detail detail : details) {
-            add(detail);
-        }
+    public List<Detail> getById(long id) {
+        return new ArrayList<>(cache.get(id));
     }
 
+    public boolean containDetails(long id) {
+        return cache.keySet().contains(id);
+    }
 
     private static DetailRepository instance = new DetailRepository();
     public static DetailRepository getInstance(){

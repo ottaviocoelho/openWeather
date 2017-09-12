@@ -16,8 +16,7 @@ public abstract class ForecastBuilder {
         forecast.setTempMax(resolveTempMax(details));
         forecast.setTempMin(resolveTempMin(details));
         forecast.setDt(firstDetail.getDt());
-        forecast.setId(firstDetail.getCityId());
-        forecast.setCity(CityRepository.getInstance().getById(forecast.getId()));
+        forecast.setCity(CityRepository.getInstance().getById(firstDetail.getCityId()));
         return forecast;
     }
 
