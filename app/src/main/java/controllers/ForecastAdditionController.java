@@ -6,20 +6,20 @@ import com.example.otavioaugusto.myapplication.AddForecastActivity;
 import com.example.otavioaugusto.myapplication.R;
 
 import services.CityService;
+import utils.RequestListener;
 
 public class ForecastAdditionController {
 
     private CityService service;
     private AddForecastActivity addForecastActivity;
-
     public void init(AddForecastActivity addForecastActivity) {
         this.addForecastActivity = addForecastActivity;
         service = CityService.getInstance();
     }
 
-    public void addForecast() {
+    public void addForecast(RequestListener listener) {
         String url = extractName();
-        service.queryByName(url);
+        service.queryByName(url, listener);
     }
 
     private String extractName() {

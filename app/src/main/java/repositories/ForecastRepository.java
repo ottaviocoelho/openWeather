@@ -30,6 +30,10 @@ public class ForecastRepository {
         cont.initView(forecasts);
     }
 
+    public void removeById(Long id){
+        cache.remove(id);
+    }
+
     public List<Forecast> getById(Long id){
         return cache.get(id);
     }

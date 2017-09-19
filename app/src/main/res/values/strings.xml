@@ -2,10 +2,19 @@
     <string name="app_name">My Application</string>
     <string name="new_forecast">New Forecast</string>
     <string name="button_send">Send</string>
+    <string name="button_remove">R</string>
     <string name="edit_message">Edit message</string>
     <string name="add_new_forecast">Add new forecast</string>
     <string name="city_name">City name</string>
     <string name="country_code">Country code</string>
+    <string name="order_by_max_temp">max temp</string>
+    <string name="order_by_min_temp">min temp</string>
+    <string name="order_by_city_name">city name</string>
+    <string-array name="order_by">
+        <item>Max Temp</item>
+        <item>Min Temp</item>
+        <item>City Name</item>
+    </string-array>
 
 
     <string name="day" formatted="false">Dia - %s data %s</string>

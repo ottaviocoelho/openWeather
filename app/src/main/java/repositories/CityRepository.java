@@ -1,7 +1,5 @@
 package repositories;
 
-import com.j256.ormlite.dao.Dao;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +12,13 @@ public class CityRepository {
     private Map<Long, City> cache = new HashMap<>();
 
     public void add(City city) {
-        cache.put(city.getId(), city);
+        if(cache.size() < 20) {
+            cache.put(city.getId(), city);
+        }
+    }
+
+    public void remove(Long id){
+        cache.remove(id);
     }
 
     public List<City> getAll() {
@@ -26,6 +30,7 @@ public class CityRepository {
     }
 
     public void handleLoad(List<City> cities) {
+        if(cities.size() > 20) cities = cities.subList(0, 19);
         for (City city : cities) {
             cache.put(city.getId(), city);
         }

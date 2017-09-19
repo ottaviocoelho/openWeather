@@ -19,6 +19,10 @@ public class DetailRepository {
         cache.put(key, details);
     }
 
+    public void removeById(Long id){
+        cache.remove(id);
+    }
+
     public List<Detail> getById(long id) {
         return new ArrayList<>(cache.get(id));
     }

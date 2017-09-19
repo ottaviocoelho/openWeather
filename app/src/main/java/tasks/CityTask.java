@@ -20,7 +20,7 @@ public class CityTask extends AsyncTask<String, Void, ServiceResponse> {
     protected ServiceResponse doInBackground(String... urls) {
         final OkHttpClient client = new OkHttpClient();
         ServiceResponse serviceResponse = new ServiceResponse();
-        for(String url : urls) {
+        for (String url : urls) {
             try {
                 Request request = new Request.Builder()
                         .url(url)
@@ -29,7 +29,7 @@ public class CityTask extends AsyncTask<String, Void, ServiceResponse> {
                 ResponseBody responseBody = response.body();
                 serviceResponse.setResponse(response);
                 List<JSONObject> jsonObjects = new ArrayList<>();
-                if(responseBody != null) {
+                if (responseBody != null) {
                     jsonObjects.add(new JSONObject(responseBody.string()));
                 }
                 serviceResponse.setjSonObjects(jsonObjects);
@@ -43,11 +43,10 @@ public class CityTask extends AsyncTask<String, Void, ServiceResponse> {
     @Override
     protected void onPostExecute(ServiceResponse serviceResponse) {
         final CityService service = CityService.getInstance();
-        if(serviceResponse.getResponse().code() == 200) {
+        if (serviceResponse.getResponse().code() == 200) {
             List<JSONObject> jsonObjects = serviceResponse.getjSonObjects();
-            for(JSONObject jsonObject : jsonObjects) {
-                service.addToRepository(jsonObject);
-            }
+            service.onRequestFinished(jsonObjects);
+
         } else {
             service.notifyError();
         }

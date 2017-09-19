@@ -22,13 +22,23 @@ public class ForecastDetailView {
         this.activity = activity;
     }
 
-    public void init(int resource, String cityName) {
-        TextView tView = (TextView) activity.findViewById(R.id.forecast_city_name);
-        tView.setText(cityName);
+    public void init(int resource, String cityName, String date) {
+        setCityName(cityName);
+        setLastTimeUpdated(date);
         adapter = new ForecastDetailsAdapter(activity, resource, activity.getLayoutInflater());
         ListView forecastList = (ListView) activity.findViewById(resource);
         forecastList.setAdapter(adapter);
         populateView();
+    }
+
+    public void setCityName(String cityName) {
+        TextView tView = (TextView) activity.findViewById(R.id.forecast_city_name);
+        tView.setText(cityName);
+    }
+
+    public void setLastTimeUpdated(String date) {
+        TextView tView = (TextView) activity.findViewById(R.id.last_time_updated);
+        tView.setText("Last time updated: " + date);
     }
 
     private void populateView() {

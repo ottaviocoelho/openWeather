@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <TextView
+        tools:text="TESTE"
+        android:id="@+id/forecast_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/forecast_name"/>
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:id="@+id/max_temp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/max_temp"/>
+        tools:text="TESTE"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
+        tools:text="TESTE"
+        android:id="@+id/min_temp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/min_temp"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
+        tools:text="TESTE"
+        android:id="@+id/humidity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/humidity"/>
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
 
 </LinearLayout>

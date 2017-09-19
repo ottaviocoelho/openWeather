@@ -13,12 +13,13 @@ import java.sql.SQLException;
 import models.City;
 import models.Detail;
 import models.Forecast;
+import models.LastTimeUpdated;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "openWeather.db";
+    public static final String DATABASE_NAME = "openWeather.db";
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private Dao<City, Long> cityDAO = null;
     private Dao<Detail, Void> detailDAO = null;
@@ -34,6 +35,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, City.class);
             TableUtils.createTable(connectionSource, Forecast.class);
             TableUtils.createTable(connectionSource, Detail.class);
+            TableUtils.createTable(connectionSource, LastTimeUpdated.class);
         } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
@@ -45,6 +47,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Detail.class, true);
             TableUtils.dropTable(connectionSource, Forecast.class, true);
             TableUtils.dropTable(connectionSource, City.class, true);
+            TableUtils.dropTable(connectionSource, LastTimeUpdated.class, true);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();

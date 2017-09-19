@@ -29,7 +29,6 @@ public class Forecast implements Comparable<Forecast>{
     @DatabaseField
     private long dt;
 
-
     public long getDt() {
         return dt;
     }

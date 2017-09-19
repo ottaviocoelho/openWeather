@@ -11,6 +11,9 @@ public class Detail {
     @DatabaseField(foreign = true, columnName = "forecast_fk")
     private Forecast forecast;
 
+    @DatabaseField(generatedId = true)
+    private long id;
+
     @DatabaseField
     private int humidity;
 
@@ -28,6 +31,14 @@ public class Detail {
 
     @DatabaseField
     private String icon;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public long getCityId() {
         return cityId;

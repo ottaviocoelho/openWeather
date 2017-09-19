@@ -1,13 +1,18 @@
 package controllers;
 
+import android.content.SharedPreferences;
+
 import com.example.otavioaugusto.myapplication.ForecastDetailActivity;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import db.DatabaseHelper;
+import models.City;
 import models.Detail;
 import models.Forecast;
 import repositories.CityRepository;
@@ -44,17 +49,16 @@ public class ForecastDetailsController {
         ForecastControllersRepository.getInstance().add(this);
         List<Forecast> forecasts = getHelper(activity, DatabaseHelper.class).getForecastDAO().queryForEq("city_fk", forecastId);
         if (forecasts.size() > 0) forecastRepository.addAll(forecasts);
-        if (forecasts != null) {
-            initView(forecasts);
-        }
+        initView(forecasts);
         service.query(forecastId);
     }
 
     public void initView(List<Forecast> forecasts) {
-        new ForecastDetailView(forecasts, activity).init(resource, cityName);
+        new ForecastDetailView(forecasts, activity).init(resource, cityName, getLastUpdated());
     }
 
     public void updateModels() {
+        updateTime();
         initView(forecastRepository.getById(forecastId));
         try {
             createOrUpdateForecast(forecastRepository.getById(forecastId));
@@ -78,6 +82,30 @@ public class ForecastDetailsController {
         for (Detail detail : details) {
             detailVoidDao.create(detail);
         }
+    }
+
+    private void updateTime() {
+        Forecast forecast = forecastRepository.getById(forecastId).get(0);
+        City city = forecast.getCity();
+        Date date = new Date();
+        SharedPreferences sharedPreferences = activity.getPreferences(activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong(city.getName(), date.getTime());
+        editor.commit();
+    }
+
+    public String getLastUpdated() {
+        List<Forecast> forecasts = forecastRepository.getById(forecastId);
+        if(forecasts == null) {
+            return "";
+        }
+        City city = forecasts.get(0).getCity();
+        SharedPreferences sharedPreferences = activity.getPreferences(activity.MODE_PRIVATE);
+        long time = sharedPreferences.getLong(city.getName(), 0L);
+        if(time == 0L) {
+            return "";
+        }
+        return new SimpleDateFormat("dd/MM h:mm").format(time);
     }
 
     public Long getForecastId() {
